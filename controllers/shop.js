@@ -40,7 +40,7 @@ exports.postOrder = (req, res, next) => {
 exports.postCartDeleteItem = (req, res, next) => {
   const prodId = req.body.productId;
   req.user
-    .deleteItemFromCart(prodId)
+    .removeFromCart(prodId)
     .then((result) => {
       res.redirect("/cart");
     })
@@ -66,7 +66,7 @@ exports.getCart = async (req, res, next) => {
   await req.user
     .populate("cart.items.productId")
     .then((user) => {
-      console.log(user.cart.items);
+      // console.log(user.cart.items);
       const products = user.cart.items;
       res.render("shop/cart", {
         pageTitle: "Your Cart",
